@@ -16,7 +16,7 @@ from register import Ui_MainWindow
 from Adminui  import Ui_MainWindow2
 import shutil
 from datetime import timedelta, datetime
-from PIL import Image
+
 class Speak:
     def __init__(self):
         self.speak_out=win32com.client.Dispatch('SAPI.SPVOICE')
