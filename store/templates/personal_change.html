@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息修改</title>
+    <style type="text/css">
+        .one{
+                width: 400px;
+                height: 400px;
+                float: left;
+                top: 100px;
+            }
+
+        .quit{
+            width: 75px;
+            height: 150px;
+            position: fixed;
+
+            right: 0px;
+        }
+
+        .box{
+            width: 800px;
+            padding: 100px 20px;
+            padding-left:  10%;
+            position: fixed;
+        }
+        #group{
+            width:100%;
+            height:100%;
+            background-image: url("/static/backgroup.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+    </style>
+</head>
+<body id="group">
+<div align="center"><a href="{% url 'personal' %}">个人中心</a></div>
+    <div class="quit"><a href="{% url 'login_out' %}">退出</a></div>
+<div class="box">
+
+<form   method="post" enctype="multipart/form-data">
+    <div class="one" align="center"><img src='/static/{{ member.a6 }}'  alt="加载错误" height="200px" width="200px"></div>
+
+    <div class="one" >
+        {% csrf_token %}
+
+        账号： {{member.a1}}<br>
+        昵称： <input type="text" name="new_username" value="{{ member.a2 }}"><br>
+        密码： <input type="text" name="new_password" value={{ member.a3 }}><br>
+        手机： <input type="text" name="new_phone" value="{{ member.a4}}"><br>
+        权限： {{ member.a5}}<br>
+        头像： <input type="file" name='new_picture' ><br>
+
+        <input type="submit" value="提交">{{ err }}<br>
+    </div>
+
+</form>
+</div>
+</body>
+</html>

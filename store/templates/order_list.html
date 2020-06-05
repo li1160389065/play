@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <style>
+        #group{
+            width:100%;
+            height:100%;
+            background-image: url("/static/backgroup.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body id="group">
+<br>
+<br>
+<table align="center" border="1px" bordercolor="#ffcccc">
+<tr align="center">
+    <td>图片</td>
+    <td>商品编号</td>
+    <td>商品名称</td>
+    <td>商品价格</td>
+    <td>购买数量</td>
+    <td>操作</td>
+</tr>
+{% for key,value in lists.items %}
+    {% csrf_token %}
+    <tr align="center">
+        <td> <img src='/static/{{ value.4 }}' alt="该商品暂无头像" height="50px" width="50px" ></td>
+        <td>{{ value.0 }}</td>
+        <td><a href="/store_app/goods_date/{{ value.0 }}">{{ value.1 }}</a></td>
+        <td>{{ value.2 }}</td>
+        <td>{{ value.3 }}</td>
+        <td><a href="/store_app/order_delete/{{ key }}">删除</a></td>
+    </tr><br>
+
+{% endfor %}
+</table>
+<div align="center">总价为{{ a }}元
+    折后价为{{ end_price }}元
+</div>
+<div align="center">
+<form   method="post" enctype="multipart/form-data">
+    <div class="one" >
+        {% csrf_token %}
+        <input type="submit" value="确定支付">{{ err }} <a href="/store_app/add_money/">{{ err1 }}</a><br>
+    </div>
+</form></div>
+<div align="center"><a href="{% url 'index' %}">返回首页</a></div>
+</body>
+</html>

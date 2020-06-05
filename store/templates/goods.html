@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品详情</title>
+    <style type="text/css">
+        .one{
+                width: 400px;
+                height: 400px;
+                float: left;
+                top: 100px;
+            }
+
+        .box{
+            width: 800px;
+            padding: 100px 20px;
+            padding-left:  10%;
+            position: fixed;
+        }
+        #group{
+            width:100%;
+            height:100%;
+            background-image: url("/static/backgroup.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+    </style>
+</head>
+<body id="group">
+<div class="box">
+    <a href="{% url 'index' %}">返回首页</a><br>
+    <div class="quit"><a href="{% url 'login_out' %}">退出</a></div><br>
+<form   method="post" enctype="multipart/form-data">
+    <div class="one" align="center"><img src='/static/{{goods.a6}}'  alt="加载错误" height="200px" width="200px">
+
+    </div>
+    <div class="one" >
+        {% csrf_token %}
+        <h2>{{ goods.a1 }}<br></h2>
+        ￥{{ goods.a3}}<br>
+        库存{{ goods.a4}} {{ goods.a5}}<br></div>
+     <div>
+         {{ goods.a7}}
+    </div>
+<div><a href="/store_app/order/{{ goods.a0 }}">下单</a></div>
+</form>
+</div>
+</body>
+</html>

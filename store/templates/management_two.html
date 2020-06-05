@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>成员信息中心</title>
+    <style type="text/css">
+        .quit{
+            width: 75px;
+            height: 150px;
+            position: fixed;
+
+            right: 0px;
+        }
+        #group{
+            width:100%;
+            height:100%;
+            background-image: url("/static/backgroup.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body id="group">
+<div class="x-nav">
+    <br>
+    <span class="layui-breadcrumb" >
+        <div align="center">
+            <h2>
+        <a href="/store_app/management">返回后台管理</a>
+        <a href="{% url 'index' %}">返回首页</a><br></h2></div>
+
+    </span>
+    <div class="quit"><a href="{% url 'login_out' %}">退出</a></div>
+    <br>
+    <br>
+    <br>
+
+</div>
+<table align="center" border="1px" bordercolor="#000000">
+<tr align="center">
+    <td>序号</td>
+    <td>账号</td>
+    <td>昵称</td>
+    <td>密码</td>
+    <td>手机号</td>
+    <td>权限</td>
+
+</tr>
+
+{% for key,value in number.items %}
+    <h2>
+    {% csrf_token %}
+    <tr align="center">
+        <td>{{ value.0 }}</td>
+        <td>{{ value.1 }}</td>
+        <td>{{ value.2 }}</td>
+        <td>{{ value.3 }}</td>
+        <td>{{ value.4 }}</td>
+        <td>{{ value.5 }}</td>
+
+    </tr></h2>
+{% endfor %}
+
+</table>
+</body>

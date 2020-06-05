@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商城</title>
+    <style type="text/css">
+        #group{
+            width:100%;
+            height:100%;
+            background-image: url("/static/backgroup.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        .clear{
+            clear: both;
+
+        }
+        .box1{
+            width: 500px;
+            height:100px;
+        }
+        .one{
+            width: 200px;
+            height: 300px;
+            left: 1000px;
+            float:  left ;
+            margin: 50px 50px 25px 100px;
+        }
+        .quit{
+            width: 75px;
+            height: 150px;
+            position: fixed;
+
+            right: 0px;
+        }
+    </style>
+</head>
+<body id="group">
+{% csrf_token %}
+{% load static %}
+<div align="center"><h2>杂货铺</h2></div>
+<div  align="center" >
+    <div class="quit">
+
+        <h3><a href="{% url 'login' %}">{{ power.a1 }}</a></h3>
+        <h3><a href="{% url 'register' %}">{{ power.a2 }}</a></h3>
+        <h3><a href="{% url 'personal' %}">{{ power.a4 }}</a></h3>
+        <h3> <a href="/store_app/order_list/{{ user}}">{{power.a5 }}</a></h3>
+        <h3><a href="{% url 'management' %}">{{ power.a6 }}</a></h3>
+        <h3><a href="{% url 'login_out' %}">{{ power.a3 }}</a></h3>
+
+    </div><br>
+<form  action="/store_app/goods_list/0/" method="post" enctype="multipart/form-data">
+    <div  align="center">
+        {% csrf_token %}
+    <input type="text" name="goods_find" value="{{ member.a2 }}" maxlength="100" size="200px"><input type="submit" value="搜索"><br>
+    </div>
+    <br>
+    <br>
+<div align="center">
+    {% for key,value in types.items %}
+        <a href="/store_app/goods_list/{{ key}}">{{ value.1 }}</a>
+    {% endfor %}
+    {% for good in page %}
+        </div>
+        <div class="one">
+        <a href="/store_app/goods_date/{{ good.a0 }}">
+        <img src='/static/{{ good.a6 }}' alt="该商品暂无头像" height="200px" width="200px" ><br>
+        {{ good.a1|truncatechars:15}}<br>
+        ￥{{ good.a3}}<br>
+        </a>
+        </div>
+    {% endfor%}
+    <br>
+<div class="clear"></div>
+<div align="center">
+    <ul class="box1">
+        {% if page.has_previous %}
+            {# 点击a标签 跳转到上一页链接  ?index=  为地址后面拼接的参数 #}
+            <a href="?index={{page.previous_page_number}}">上一页</a>
+        {% else %}
+            <a href="#">上一页</a>
+        {% endif%}
+        {% for count in paginator.page_range %}
+            {# count 是循环出来的数字， page.number 是某一页的页码 #}
+            {% if count == page.number %}
+                <a href="?index={{count}}">{{count}}</a>
+            {% else %}
+                <a href="?index={{count}}">{{count}}</a>
+            {% endif%}
+        {% endfor%}
+        {% if page.has_next %}
+                <a href="?index={{ page.next_page_number}}">下一页</a>
+        {% else %}
+                <a href="#">下一页</a>
+        {% endif %}
+    </ul>
+</div>
+</form>
+</div>
+</body>
+</html>
